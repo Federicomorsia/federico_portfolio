@@ -2,6 +2,7 @@ import { FC } from "react";
 import { PrismicRichText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 import { FooterSlice } from "../../prismicio-types";
+import { PrismicNextLink } from "@prismicio/next";
 
 const Footer: FC = async () => {
   const client = createClient();
@@ -24,6 +25,15 @@ const Footer: FC = async () => {
                 {children}
               </p>
             ),
+            hyperlink: ({ node, children }) => (
+                            <PrismicNextLink 
+                              field={node.data}
+                              className="underline underline-offset-2 text-primary hover:text-accent"
+                            >
+                              {children}
+                            </PrismicNextLink>
+                          )
+                        
           }}  
         />
       </footer>
