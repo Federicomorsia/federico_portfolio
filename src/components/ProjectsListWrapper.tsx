@@ -58,7 +58,7 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
   return (
     <>
       {/* Toggle buttons - styled like list items */}
-      <div className="fixed z-[9999] mb-8" style={{ mixBlendMode: 'difference' }}>
+      <div className="fixed z-[9999] mb-4 md:mb-8" style={{ mixBlendMode: 'difference' }}>
         <div className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl">
           <button
             onClick={() => {
@@ -89,7 +89,7 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
       {/* Grid view */}
       {viewMode === 'grid' ? (
         <section className="relative w-full pt-24 md:pt-32">
-          <div className="flex flex-wrap items-center gap-24 md:gap-32">
+          <div className="flex flex-wrap items-center gap-4 md:gap-32">
             {projects.map((project, index) => {
               if (!project.primary.imgpreview?.url) return null;
               

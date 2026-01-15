@@ -15,8 +15,16 @@ export type ProjectslistProps = SliceComponentProps<Content.ProjectslistSlice>;
  */
 const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    // Detect touch device
+    const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    setIsTouch(isTouchDevice);
+
+    // Only track mouse on non-touch devices
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
@@ -27,8 +35,8 @@ const Projectslist: FC<ProjectslistProps> = ({ slice }) => {
 
   return (
     <div className="relative group">
-      {/* Immagine di anteprima dietro alla lista - sempre nel DOM, controllata solo da CSS */}
-      {slice.primary.imgpreview && slice.primary.imgpreview.url && (
+      {/* Immagine di anteprima dietro alla lista - solo su dispositivi con mouse */}
+      {!isTouch && slice.primary.imgpreview && slice.primary.imgpreview.url && (
         <div 
           className="preview-image fixed pointer-events-none z-0 opacity-0"
           style={{
