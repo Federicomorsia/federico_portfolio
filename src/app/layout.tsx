@@ -41,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jetbrainsMono.variable} font-mono`}>
-      <body className="min-h-screen flex flex-col p-8 bg-white">
+      <body className="min-h-screen flex flex-col p-4 md:p-8 bg-white">
         <main className="flex-1">
           {children}
         </main>
