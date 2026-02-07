@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Disabilita selezione testo */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* Variabili colori globali */
 :root {
   --color-primary: #BBDAF7;     /* Bianco per il testo principale con effetto difference */
