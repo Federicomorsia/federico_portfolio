@@ -14,7 +14,6 @@ interface ProjectsListWrapperProps {
 
 const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Extract project title from ProjectsList rich text
   const getProjectTitle = (project: Content.ProjectslistSlice): string => {
@@ -88,29 +87,32 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
 
       {/* Grid view */}
       {viewMode === 'grid' ? (
-        <section className="relative w-full pt-24 md:pt-32">
-          <div className="flex flex-wrap items-center gap-4 md:gap-32">
+        <section className="relative w-screen -ml-[calc((100vw-100%)/2)] pt-24 md:pt-32 pb-16 px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-x-12 gap-y-12 items-end">
             {projects.map((project, index) => {
               if (!project.primary.imgpreview?.url) return null;
               
               const link = getProjectLink(project);
+              const title = getProjectTitle(project);
               
               const imageContent = (
-                <div className="relative group">
-                  <PrismicNextImage
-                    field={project.primary.imgpreview}
-                    className="w-auto h-auto object-contain"
-                    style={{ maxWidth: '200px', maxHeight: '200px', minWidth: '200px', minHeight: '200px' }}
-                  />
+                <div className="flex flex-col">
+                  <div className="relative w-full flex items-end">
+                    <PrismicNextImage
+                      field={project.primary.imgpreview}
+                      className="w-full h-auto object-contain max-h-64 transition-all hover:mix-blend-difference hover:invert"
+                    />
+                  </div>
+                  <p className="text-sm text-primary hover:text-accent mt-2">
+                    {title}
+                  </p>
                 </div>
               );
               
               return (
                 <div
                   key={index}
-                  className="hover:z-50 hover:scale-110 transition-transform"
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  className="isolation-auto"
                 >
                   {link ? (
                     <PrismicNextLink field={link} className="block cursor-pointer">
@@ -123,23 +125,10 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
               );
             })}
           </div>
-          
-          {/* Project title preview - bottom left */}
-          {hoveredIndex !== null && (
-            <div 
-              className="fixed z-[9999] text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary pointer-events-none"
-              style={{ 
-                bottom: '8rem',
-                mixBlendMode: 'difference' 
-              }}
-            >
-              {getProjectTitle(projects[hoveredIndex])}
-            </div>
-          )}
         </section>
       ) : (
         /* List view */
-        <div className="pt-24 md:pt-32">
+        <div className="pt-24 md:pt-32 pb-16">
           {projects.map((project, index) => (
             <Projectslist key={index} slice={project} index={index} slices={projects} context={{}} />
           ))}
