@@ -9,6 +9,7 @@ import { components } from "@/slices";
 import Header from "@/components/header";
 import ISRDebug from "@/components/ISRDebug";
 import ProjectsListWrapper from "@/components/ProjectsListWrapper";
+import DrawingCanvas from "@/components/DrawingCanvas";
 
 /**
  * Homepage del sito con supporto ISR
@@ -40,6 +41,7 @@ export default async function Home() {
 
   return (
     <>
+      <DrawingCanvas />
       <Header />
       {/* Render other slices first */}
       {otherSlices.length > 0 && <SliceZone slices={otherSlices} components={components} />}
