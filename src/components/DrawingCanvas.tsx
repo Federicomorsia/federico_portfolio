@@ -98,6 +98,21 @@ const DrawingCanvas = () => {
     };
   }, [strokes.length]);
 
+  // Disabilita scrolling per permettere il disegno su mobile
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.touchAction = 'none';
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.touchAction = '';
+    };
+  }, []);
+
   // Gestione eventi
   const handlePointerDown = useCallback((e: PointerEvent) => {
     if (e.button !== 0) return; // Solo click sinistro
