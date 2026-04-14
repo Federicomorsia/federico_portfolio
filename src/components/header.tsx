@@ -3,7 +3,6 @@ import { PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import { createClient } from "@/prismicio";
 import { HeaderSlice } from "../../prismicio-types";
-import { EmojiText } from "./EmojiText";
 
 const Header: FC = async () => {
   const client = createClient();
@@ -24,11 +23,9 @@ const Header: FC = async () => {
           field={headerSlice.primary.RichText}
           components={{
             heading1: ({ children }) => (
-              <EmojiText
-                className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono"
-              >
+              <h1 className="text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl text-primary !leading-normal font-mono">
                 {children}
-              </EmojiText>
+              </h1>
             ),
             hyperlink: ({ node, children }) => (
               <PrismicNextLink 

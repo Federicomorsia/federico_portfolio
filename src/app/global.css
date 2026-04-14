@@ -48,28 +48,6 @@ body {
   }
 }
 
-/* Emoji isolation from blend mode */
-.emoji {
-  mix-blend-mode: normal;
-  display: inline-block;
-}
-
-/* Exclude emoji from mix-blend-mode effect */
-h1, a {
-  isolation: isolate;
-}
-
-h1 > *, a > * {
-  mix-blend-mode: inherit;
-}
-
-/* Reset blend mode for emoji characters */
-@supports (font-family: "Noto Color Emoji") {
-  *::first-letter {
-    mix-blend-mode: normal;
-  }
-}
-
 /* Video embedded styles */
 .video-container iframe {
   position: absolute;
