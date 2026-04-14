@@ -17,6 +17,18 @@
   --color-accent: #02f713;      /* Grigio per gli hover/accent - creerà contrasto con difference */
 }
 
+/* Apply font weight globally */
+body {
+  font-weight: 400;
+}
+
+/* Mobile font weight */
+@media (max-width: 768px) {
+  body {
+    font-weight: 600;
+  }
+}
+
 /* Classi personalizzate per i colori */
 @layer utilities {
   .text-primary {

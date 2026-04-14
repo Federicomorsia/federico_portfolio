@@ -14,6 +14,7 @@ interface ProjectsListWrapperProps {
 
 const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Extract project title from ProjectsList rich text
   const getProjectTitle = (project: Content.ProjectslistSlice): string => {
@@ -88,34 +89,37 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
       {/* Grid view */}
       {viewMode === 'grid' ? (
         <section className="relative w-screen -ml-[calc((100vw-100%)/2)] pt-24 md:pt-32 pb-16 px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-x-12 gap-y-12 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-x-12 gap-y-12 items-end">
             {projects.map((project, index) => {
               if (!project.primary.imgpreview?.url) return null;
               
               const link = getProjectLink(project);
               const title = getProjectTitle(project);
+              const isHovered = hoveredIndex === index;
               
               const imageContent = (
-                <div className="flex flex-col">
+                <div 
+                  className="flex flex-col group cursor-pointer" 
+                  style={{ isolation: 'auto' }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
                   <div className="relative w-full flex items-end">
                     <PrismicNextImage
                       field={project.primary.imgpreview}
-                      className="w-full h-auto object-contain max-h-64 transition-all hover:mix-blend-difference hover:invert"
+                      className="w-full h-auto object-contain max-h-64 transition-all"
                     />
                   </div>
-                  <p className="text-sm text-primary hover:text-accent mt-2">
+                  <div className="text-sm text-primary group-hover:text-accent mt-2 transition-colors" style={{ mixBlendMode: 'difference', fontWeight: 'var(--font-weight-mobile)' }}>
                     {title}
-                  </p>
+                  </div>
                 </div>
               );
               
               return (
-                <div
-                  key={index}
-                  className="isolation-auto"
-                >
+                <div key={index}>
                   {link ? (
-                    <PrismicNextLink field={link} className="block cursor-pointer">
+                    <PrismicNextLink field={link} className="block cursor-pointer" style={{ isolation: 'auto' }}>
                       {imageContent}
                     </PrismicNextLink>
                   ) : (
