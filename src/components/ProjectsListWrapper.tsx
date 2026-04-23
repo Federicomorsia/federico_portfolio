@@ -95,7 +95,6 @@ const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
               
               const link = getProjectLink(project);
               const title = getProjectTitle(project);
-              const isHovered = hoveredIndex === index;
               
               const imageContent = (
                 <div 
