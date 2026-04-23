@@ -14,7 +14,7 @@ interface ProjectsListWrapperProps {
 
 const ProjectsListWrapper: FC<ProjectsListWrapperProps> = ({ projects }) => {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [, setHoveredIndex] = useState<number | null>(null);
 
   // Extract project title from ProjectsList rich text
   const getProjectTitle = (project: Content.ProjectslistSlice): string => {
